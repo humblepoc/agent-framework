@@ -1,0 +1,31 @@
+# Agent framework configuration.
+#
+# Every value here can also be overridden by environment variables (which win),
+# e.g. AGENT_LLM_PROVIDER, AGENT_LLM_MODEL, AGENT_API_KEY, AGENT_FLAVOR.
+
+# Which agent to run. Must match a directory under src/agent/agents/.
+flavor: example
+
+max_iterations: 25
+log_level: INFO
+
+llm:
+  # One of: custom | anthropic | openai | gemini | copilot
+  provider: custom
+  # Leave model/base_url empty to use the per-provider defaults in config.py.
+  model: ""
+  base_url: ""
+  # Set keys via env vars in Lambda instead of committing them here:
+  #   AGENT_API_KEY, AGENT_CUSTOM_API_KEY
+  api_key: ""
+  custom_api_key: ""
+  temperature: 0.0
+  max_tokens: 4096
+
+lambda:
+  # Optional delay (seconds) before starting work when fed via SQS. 0-900.
+  delay_seconds: 0
+
+# Free-form settings your agent's tools can read via config.extra.
+extra:
+  echo_prefix: "[example] "
